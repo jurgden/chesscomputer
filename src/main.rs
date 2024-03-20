@@ -5,16 +5,22 @@ fn bit_to_position(bit: PiecePosition) -> Result<String, String> {
         return Err("No piece present!".to_string());
     } else {
         let onebit_index = bit_scan(bit);
+        return Ok(index_to_position(onebit_index));
     }
 }
 
-fn main() {
-    
-    
-    println!("{}", (1 as u64) << 55);
-    println!("{}", (1 as u64) << 8);
-    println!("{}", (1 as u64) << 10);
-    println!("{}", (1 as u64) << 23);
+static COL_MAP: [char; 8] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
-    println!("Hello, world!");
+
+fn index_to_position(index: usize) -> String {
+    let column = index % 8;
+    let row = index / 8 + 1;
+    return format!("{}{}", COL_MAP[column], row);
+}
+
+
+fn main() {
+    for i in 0..16 {
+        println!("{} -> {}", i, index_to_position(i));
+    }
 }
